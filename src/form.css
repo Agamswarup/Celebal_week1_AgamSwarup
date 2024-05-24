@@ -1,0 +1,137 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+  width: 50%;
+}
+.title-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+
+  align-items: center;
+}
+.title1 {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 0px;
+}
+.title2 {
+  padding-top: 0px;
+  font-size: 14px;
+  color: rgb(77, 100, 180);
+}
+.input1 {
+  width: 101%;
+  height: 39px;
+  border: 1px solid rgb(77, 100, 180);
+  border-radius: 7px;
+  &:hover {
+    background-color: rgba(77, 99, 180, 0.204);
+  }
+  color: rgb(104, 104, 104);
+}
+.input {
+  width: 100%;
+  height: 35px;
+  border: 1px solid rgb(77, 100, 180);
+  border-radius: 7px;
+  &:hover {
+    background-color: rgba(77, 99, 180, 0.204);
+  }
+}
+.submit {
+  background-color: rgb(77, 100, 180);
+  border: 0.1px solid rgb(77, 100, 180);
+  border-radius: 7px;
+  width: 20%;
+  height: 35px;
+  color: aliceblue;
+  font-size: medium;
+  &:hover {
+    background-color: rgb(12, 150, 47);
+    transition: 0.2s;
+    width: 23%;
+  }
+}
+
+.leftside {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  gap: 15px;
+}
+.rightside {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 15px;
+}
+.wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+.code {
+  width: 60px;
+  height: 39px;
+  border: 1px solid rgb(77, 100, 180);
+  border-radius: 7px;
+  color: rgb(104, 104, 104);
+
+  &:hover {
+    background-color: rgba(75, 100, 194, 0.204);
+  }
+}
+
+.phone-field {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+.error {
+  color: rgb(179, 11, 11);
+  font-size: x-small;
+  margin-top: 1px;
+}
+.password-container {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(77, 100, 180);
+  border-radius: 7px;
+}
+.hide-button {
+  width: 25%;
+  height: 37px;
+  border: 0px solid rgb(77, 100, 180);
+  border-radius: 7px;
+  background-color: rgba(77, 99, 180, 0.204);
+  &:hover {
+    background-color: rgba(77, 99, 180, 0.204);
+  }
+}
+.password {
+  width: 100%;
+  height: 35px;
+  border: 0px solid rgb(77, 100, 180);
+  border-radius: 7px;
+}
+@media (max-width: 720px) {
+  .wrap {
+    display: flex;
+    flex-direction: column;
+  }
+}

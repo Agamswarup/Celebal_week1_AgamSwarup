@@ -1,0 +1,15 @@
+.data {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+.box {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid rgb(20, 170, 27);
+  border-radius: 10px;
+}
+.title {
+  color: rgb(20, 170, 27);
+}
