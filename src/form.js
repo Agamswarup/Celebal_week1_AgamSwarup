@@ -80,8 +80,23 @@ function Form() {
     if (!formdata.firstName) newErrors.firstName = "First Name is required";
     if (!formdata.lastName) newErrors.lastName = "Last Name is required";
     if (!formdata.username) newErrors.username = "Username is required";
-    if (!formdata.email) newErrors.email = "Email is required";
-    if (!formdata.password) newErrors.password = "Password is required";
+    if (!formdata.email) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formdata.email)) {
+      newErrors.email = "Enter a valid email";
+    }
+    if (!formdata.password) {
+      newErrors.password = "Password is required";
+    } else if (
+      formdata.password.length <= 8 ||
+      !/[A-Z]/.test(formdata.password) ||
+      !/[a-z]/.test(formdata.password) ||
+      !/\d/.test(formdata.password) ||
+      !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(formdata.password)
+    ) {
+      newErrors.password =
+        "Password length should be minimum 8 and it  must contain (Upper & lower case , special character)";
+    }
     if (!formdata.countryCode)
       newErrors.countryCode = "Country Code is required";
     if (!formdata.phoneNo) {
@@ -123,21 +138,20 @@ function Form() {
     }
   };
 
-const onSubmitHandler = (e) => {
-  e.preventDefault();
-  const validationErrors = validate();
-  setErrors(validationErrors);
-  if (Object.keys(validationErrors).length === 0) {
-    setIsSubmitted(true); // Set isSubmitted to true when form is submitted
-    navigate("/success", { state: formdata });
-  }
-};
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      setIsSubmitted(true);
+      navigate("/success", { state: formdata });
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const isSubmitDisabled = Object.keys(errors).length > 0;
   return (
     <div className="app">
       <form className="form" onSubmit={onSubmitHandler}>
@@ -292,7 +306,7 @@ const onSubmitHandler = (e) => {
           </div>
         </div>
 
-        <button className="submit" type="submit" disabled={isSubmitDisabled}>
+        <button className="submit" type="submit" onClick={onSubmitHandler}>
           Submit
         </button>
       </form>
