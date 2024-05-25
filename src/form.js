@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./form.css";
 
+// Taking the requied field
 function Form() {
   const [formdata, setFormdata] = useState({
     firstName: "",
@@ -19,12 +20,12 @@ function Form() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [countryCodes, setCountryCodes] = useState([]);
-  const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
 
+  // Fetching the country code by API
   useEffect(() => {
     const fetchCountryCodes = async () => {
       try {
@@ -46,40 +47,198 @@ function Form() {
     fetchCountryCodes();
   }, []);
 
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
-      .then((data) => {
-        const countryNames = data.map((country) => country.name.common).sort();
-        setCountries(countryNames);
-      })
-      .catch((error) => console.error("Error fetching countries:", error));
-  }, []);
+  //currently API for cities is not working  for countries and cities
 
-  const fetchCities = async (country) => {
-    try {
-      const response = await fetch(
-        "https://countriesnow.space/api/v0.1/countries/cities",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ country }),
-        }
-      );
-      const data = await response.json();
-      setCities(data.data);
-    } catch (error) {
-      console.error("Error fetching cities:", error);
-    }
-  };
+  // useEffect(() => {
+  //   fetch("https://restcountries.com/v3.1/all")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const countryNames = data.map((country) => country.name.common).sort();
+  //       setCountries(countryNames);
+  //     })
+  //     .catch((error) => console.error("Error fetching countries:", error));
+  // }, []);
 
+  // const fetchCities = async (country) => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://countriesnow.space/api/v0.1/countries/cities",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ country }),
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     setCities(data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching cities:", error);
+  //   }
+  // };
+
+  // Data for countries and their cities
+  const data = [
+    {
+      country: "United States",
+      cities: [
+        "New York",
+        "Los Angeles",
+        "Chicago",
+        "Houston",
+        "Phoenix",
+        "Philadelphia",
+        "San Antonio",
+        "San Diego",
+        "Dallas",
+        "San Jose",
+      ],
+    },
+    {
+      country: "Canada",
+      cities: [
+        "Toronto",
+        "Vancouver",
+        "Montreal",
+        "Calgary",
+        "Edmonton",
+        "Ottawa",
+        "Winnipeg",
+        "Quebec City",
+        "Hamilton",
+        "Victoria",
+      ],
+    },
+    {
+      country: "Australia",
+      cities: [
+        "Sydney",
+        "Melbourne",
+        "Brisbane",
+        "Perth",
+        "Adelaide",
+        "Gold Coast",
+        "Canberra",
+        "Newcastle",
+        "Wollongong",
+        "Hobart",
+      ],
+    },
+    {
+      country: "India",
+      cities: [
+        "Mumbai",
+        "Delhi",
+        "Bangalore",
+        "Hyderabad",
+        "Ahmedabad",
+        "Chennai",
+        "Kolkata",
+        "Surat",
+        "Pune",
+        "Jaipur",
+      ],
+    },
+    {
+      country: "United Kingdom",
+      cities: [
+        "London",
+        "Birmingham",
+        "Manchester",
+        "Glasgow",
+        "Liverpool",
+        "Bristol",
+        "Sheffield",
+        "Leeds",
+        "Edinburgh",
+        "Leicester",
+      ],
+    },
+    {
+      country: "Germany",
+      cities: [
+        "Berlin",
+        "Hamburg",
+        "Munich",
+        "Cologne",
+        "Frankfurt",
+        "Stuttgart",
+        "Düsseldorf",
+        "Dortmund",
+        "Essen",
+        "Leipzig",
+      ],
+    },
+    {
+      country: "France",
+      cities: [
+        "Paris",
+        "Marseille",
+        "Lyon",
+        "Toulouse",
+        "Nice",
+        "Nantes",
+        "Strasbourg",
+        "Montpellier",
+        "Bordeaux",
+        "Lille",
+      ],
+    },
+    {
+      country: "Japan",
+      cities: [
+        "Tokyo",
+        "Yokohama",
+        "Osaka",
+        "Nagoya",
+        "Sapporo",
+        "Kobe",
+        "Kyoto",
+        "Fukuoka",
+        "Kawasaki",
+        "Saitama",
+      ],
+    },
+    {
+      country: "Brazil",
+      cities: [
+        "São Paulo",
+        "Rio de Janeiro",
+        "Brasília",
+        "Salvador",
+        "Fortaleza",
+        "Belo Horizonte",
+        "Manaus",
+        "Curitiba",
+        "Recife",
+        "Porto Alegre",
+      ],
+    },
+    {
+      country: "South Africa",
+      cities: [
+        "Johannesburg",
+        "Cape Town",
+        "Durban",
+        "Pretoria",
+        "Port Elizabeth",
+        "Bloemfontein",
+        "Nelspruit",
+        "Kimberley",
+        "Polokwane",
+        "Pietermaritzburg",
+      ],
+    },
+  ];
+
+  // Now validate all the required field
   const validate = () => {
     const newErrors = {};
     if (!formdata.firstName) newErrors.firstName = "First Name is required";
     if (!formdata.lastName) newErrors.lastName = "Last Name is required";
     if (!formdata.username) newErrors.username = "Username is required";
+
     if (!formdata.email) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formdata.email)) {
@@ -97,6 +256,7 @@ function Form() {
       newErrors.password =
         "Password length should be minimum 8 and it  must contain (Upper & lower case , special character)";
     }
+
     if (!formdata.countryCode)
       newErrors.countryCode = "Country Code is required";
     if (!formdata.phoneNo) {
@@ -104,6 +264,7 @@ function Form() {
     } else if (!/^\d{10}$/.test(formdata.phoneNo)) {
       newErrors.phoneNo = "Phone No must be 10 digits";
     }
+
     if (!formdata.country) newErrors.country = "Country is required";
     if (!formdata.city) newErrors.city = "City is required";
     if (!formdata.panNo) {
@@ -129,15 +290,18 @@ function Form() {
     }
   }, [errors, isSubmitted, formdata, navigate]);
 
+  //ONCHANGE HANDLER
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormdata((prevState) => ({ ...prevState, [name]: value }));
     if (name === "country") {
-      fetchCities(value);
+      const selectedCountry = data.find((country) => country.country === value);
+      setCities(selectedCountry ? selectedCountry.cities : []);
       setFormdata((prevState) => ({ ...prevState, city: "" }));
     }
   };
 
+  //SUBMIT HANDLER
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -148,6 +312,7 @@ function Form() {
     }
   };
 
+  //FOR HIDE AND SHOW PASSWORD
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -223,6 +388,7 @@ function Form() {
             </div>
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
+
           <div className="rightside">
             <div className="phone-field">
               <select
@@ -261,9 +427,9 @@ function Form() {
               className="input1"
             >
               <option value="">Select Country</option>
-              {countries.map((country, index) => (
-                <option key={index} value={country}>
-                  {country}
+              {data.map((country, index) => (
+                <option key={index} value={country.country}>
+                  {country.country}
                 </option>
               ))}
             </select>
